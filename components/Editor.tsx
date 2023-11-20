@@ -1,19 +1,57 @@
-import { MDXEditor } from "@mdxeditor/editor";
-import { headingsPlugin } from "@mdxeditor/editor/plugins/headings";
-import { listsPlugin } from "@mdxeditor/editor/plugins/lists";
-import { quotePlugin } from "@mdxeditor/editor/plugins/quote";
-import { thematicBreakPlugin } from "@mdxeditor/editor/plugins/thematic-break";
+// You can use this code in a separate component that's imported in your pages.
+import {
+  thematicBreakPlugin,
+  type CodeBlockEditorDescriptor,
+} from "@mdxeditor/editor";
+import "@mdxeditor/editor/style.css";
+import React from "react";
+const {
+  MDXEditor,
+  codeBlockPlugin,
+  headingsPlugin,
+  listsPlugin,
+  linkPlugin,
+  quotePlugin,
+  markdownShortcutPlugin,
+  useCodeBlockEditorContext,
+} = await import("@mdxeditor/editor");
 
-export default function Editor() {
+const PlainTextCodeEditorDescriptor: CodeBlockEditorDescriptor = {
+  match: () => true,
+  priority: 0,
+  Editor: (props) => {
+    const cb = useCodeBlockEditorContext();
+    return (
+      <div onKeyDown={(e) => e.nativeEvent.stopImmediatePropagation()}>
+        <textarea
+          rows={3}
+          cols={20}
+          defaultValue={props.code}
+          onChange={(e) => cb.setCode(e.target.value)}
+        />
+      </div>
+    );
+  },
+};
+
+const Editor = () => {
   return (
     <MDXEditor
-      markdown="New markdown"
+      onChange={console.log}
+      markdown={"Hello world!"}
       plugins={[
+        codeBlockPlugin({
+          codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor],
+        }),
         headingsPlugin(),
         listsPlugin(),
+        linkPlugin(),
         quotePlugin(),
+        markdownShortcutPlugin(),
         thematicBreakPlugin(),
       ]}
     />
   );
-}
+};
+
+export default Editor;
