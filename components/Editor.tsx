@@ -36,25 +36,27 @@ const PlainTextCodeEditorDescriptor: CodeBlockEditorDescriptor = {
 
 const Editor = () => {
   return (
-    <div className="bg-gray-50 text-black h-screen">
-      <div className="flex justify-center mx-auto p-20 w-3/4">
-        <MDXEditor
-          onChange={console.log}
-          markdown={"Hello world!"}
-          plugins={[
-            codeBlockPlugin({
-              codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor],
-            }),
-            headingsPlugin(),
-            listsPlugin(),
-            linkPlugin(),
-            quotePlugin(),
-            markdownShortcutPlugin(),
-            thematicBreakPlugin(),
-          ]}
-        />
+    <section className=" bg-black">
+      <div className="bg-gray-50 text-black h-screen">
+        <div className="flex justify-center mx-auto p-20 w-3/4">
+          <MDXEditor
+            onChange={console.log}
+            markdown={"Hello world!"}
+            plugins={[
+              codeBlockPlugin({
+                codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor],
+              }),
+              headingsPlugin(),
+              listsPlugin(),
+              linkPlugin(),
+              quotePlugin(),
+              markdownShortcutPlugin(),
+              thematicBreakPlugin(),
+            ]}
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
